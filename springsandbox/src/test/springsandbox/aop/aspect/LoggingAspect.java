@@ -1,6 +1,9 @@
 package test.springsandbox.aop.aspect;
 
+import java.util.List;
+
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -32,6 +35,14 @@ public class LoggingAspect {
 				System.out.println("Account level: " + account.getLevel());
 			}
 		}
+	}
+
+	@AfterReturning(pointcut = "execution(* test.springsandbox.aop.dao.AccountDAO.findAccounts(..))", returning = "result")
+	public void afterReturningFindAccountsAdvice(JoinPoint joinPoint, List<Account> result) {
+		String method = joinPoint.getSignature().toShortString();
+		System.out.println("\n======>>> Executing @AfterReturning advice on method: " + method);
+		System.out.println("\n======>>> result: " + result);
+		result.get(0).setName("Terra");
 	}
 
 }

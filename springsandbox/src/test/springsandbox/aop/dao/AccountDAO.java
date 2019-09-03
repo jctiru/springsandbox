@@ -1,5 +1,8 @@
 package test.springsandbox.aop.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import test.springsandbox.aop.entity.Account;
@@ -37,6 +40,17 @@ public class AccountDAO {
 	public boolean doWork() {
 		System.out.println(getClass() + ": Do work.");
 		return true;
+	}
+
+	public List<Account> findAccounts() {
+		List<Account> accounts = new ArrayList<>();
+		Account account1 = new Account("Zidane", "Silver");
+		Account account2 = new Account("Tidus", "Platinum");
+		Account account3 = new Account("Cecil", "Gold");
+		accounts.add(account1);
+		accounts.add(account2);
+		accounts.add(account3);
+		return accounts;
 	}
 
 }
