@@ -30,7 +30,7 @@ public class AccountDAO {
 		this.serviceCode = serviceCode;
 	}
 
-	public void addAccount(Account account) {
+	public void addAccount(Account account, boolean isVip) {
 		System.out.println(getClass() + ": Add account.");
 	}
 
