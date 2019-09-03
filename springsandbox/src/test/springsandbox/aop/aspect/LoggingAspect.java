@@ -9,10 +9,17 @@ import org.springframework.stereotype.Component;
 public class LoggingAspect {
 
 	// Add all related advices for logging
-	
-	@Before("execution(public void addAccount())")
+
+	/*
+	 * Pointcut expression: execution(modifiers-pattern? return-type-pattern
+	 * declaring-type-pattern? method-name-pattern(param-pattern) throws-pattern?)
+	 */
+
+	// @Before("execution(public void test.springsandbox.aop.dao.AccountDAO.addAccount())")
+	// @Before("execution(* addAccount(test.springsandbox.aop.entity.Account))")
+	@Before("execution(* test.springsandbox.aop.dao.*.*(..))")
 	public void beforeAddAccountAdvice() {
-		System.out.println("\n======>>> Executing @Before advice on addAccount()");
+		System.out.println("\n======>>> Executing @Before advice on method");
 	}
-	
+
 }
