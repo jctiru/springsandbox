@@ -3,9 +3,11 @@ package test.springsandbox.aop.aspect;
 import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -59,6 +61,29 @@ public class LoggingAspect {
 	public void afterFinallyFindAccountsAdvice(JoinPoint joinPoint) {
 		String method = joinPoint.getSignature().toShortString();
 		System.out.println("\n======>>> Executing @After (finally) advice on method: " + method);
+	}
+
+	@Around("execution(* test.springsandbox.aop.service.*.getFortune(..))")
+	public Object aroundGetFortuneAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+		String method = proceedingJoinPoint.getSignature().toShortString();
+		System.out.println("\n======>>> Executing @Around advice on method: " + method);
+		long start = System.currentTimeMillis();
+		Object result = null;
+
+		try {
+			result = proceedingJoinPoint.proceed();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			// result = "Major accident! Go alternate route!";
+			// Rethrow exception
+			throw e;
+		}
+
+		long end = System.currentTimeMillis();
+		long duration = end - start;
+		System.out.println("\n======>>> Duration: " + (duration / 1000.0) + " seconds");
+
+		return result;
 	}
 
 }
