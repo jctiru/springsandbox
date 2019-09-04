@@ -53,4 +53,19 @@ public class AccountDAO {
 		return accounts;
 	}
 
+	public List<Account> findAccounts(boolean tripWire) {
+		// Simulate exception
+		if (tripWire) {
+			throw new RuntimeException("No capes!");
+		}
+		List<Account> accounts = new ArrayList<>();
+		Account account1 = new Account("Zidane", "Silver");
+		Account account2 = new Account("Tidus", "Platinum");
+		Account account3 = new Account("Cecil", "Gold");
+		accounts.add(account1);
+		accounts.add(account2);
+		accounts.add(account3);
+		return accounts;
+	}
+
 }

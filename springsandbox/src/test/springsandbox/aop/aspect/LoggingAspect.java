@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -43,6 +44,14 @@ public class LoggingAspect {
 		System.out.println("\n======>>> Executing @AfterReturning advice on method: " + method);
 		System.out.println("\n======>>> result: " + result);
 		result.get(0).setName("Terra");
+	}
+
+	@AfterThrowing(pointcut = "execution(* test.springsandbox.aop.dao.AccountDAO.findAccounts(..))", throwing = "e")
+	public void afterThrowingFindAccountsAdvice(JoinPoint joinPoint, Throwable e) {
+		String method = joinPoint.getSignature().toShortString();
+		System.out.println("\n======>>> Executing @AfterThrowing advice on method: " + method);
+		System.out.println("\n======>>> Exception: " + e);
+
 	}
 
 }
